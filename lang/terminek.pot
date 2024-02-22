@@ -1,0 +1,142 @@
+# Copyright (C) 2020 Eva Kohl
+# This file is distributed under the same license as the TerminEK plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: TerminEK 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/terminek\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-07-16T11:08:41+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: tek\n"
+
+#. Plugin Name of the plugin
+#: terminek.php:77
+msgid "TerminEK"
+msgstr ""
+
+#. Description of the plugin
+msgid "Manage and display events in wordpress"
+msgstr ""
+
+#. Author of the plugin
+msgid "Eva Kohl"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://evakohl.de"
+msgstr ""
+
+#: includes/tek_custom_fields.php:23
+msgid "Event dates"
+msgstr ""
+
+#: includes/tek_custom_fields.php:56
+msgid "Start date"
+msgstr ""
+
+#: includes/tek_custom_fields.php:60
+msgid "End date"
+msgstr ""
+
+#: includes/tek_frontend.php:26
+#: includes/tek_frontend.php:59
+msgid "Start: "
+msgstr ""
+
+#: includes/tek_frontend.php:32
+#: includes/tek_frontend.php:65
+msgid "End: "
+msgstr ""
+
+#: terminek.php:146
+msgid "Events"
+msgstr ""
+
+#: terminek.php:147
+msgid "Event"
+msgstr ""
+
+#: terminek.php:161
+msgid "event"
+msgstr ""
+
+#: terminek.php:191
+msgctxt "tek_eventtype"
+msgid "Event types"
+msgstr ""
+
+#: terminek.php:192
+msgctxt "tek_eventtype"
+msgid "Event type"
+msgstr ""
+
+#: terminek.php:193
+msgid "Search event types"
+msgstr ""
+
+#: terminek.php:194
+msgid "Popular event types"
+msgstr ""
+
+#: terminek.php:195
+msgid "All event types"
+msgstr ""
+
+#: terminek.php:196
+msgid "Parent event type"
+msgstr ""
+
+#: terminek.php:197
+msgid "parent event type"
+msgstr ""
+
+#: terminek.php:198
+msgid "Edit event type"
+msgstr ""
+
+#: terminek.php:199
+msgid "Update event type"
+msgstr ""
+
+#: terminek.php:200
+msgid "Add new event type"
+msgstr ""
+
+#: terminek.php:201
+msgid "New name of event type"
+msgstr ""
+
+#: terminek.php:202
+msgid "Separate event types with commas"
+msgstr ""
+
+#: terminek.php:203
+msgid "Add or remove event types"
+msgstr ""
+
+#: terminek.php:204
+msgid "Choose from most used event types"
+msgstr ""
+
+#: terminek.php:205
+msgid "Event types"
+msgstr ""
+
+#: terminek.php:216
+msgid "eventtype"
+msgstr ""
+
+#: terminek.php:222
+msgctxt "tek_eventtype"
+msgid "General"
+msgstr ""
+
+#: terminek.php:223
+msgctxt "tek_eventtype"
+msgid "general"
+msgstr ""

@@ -1,0 +1,28 @@
+/* Styles for terminek admin elements */
+#tek_data_box .postbox-header {border-bottom: none;}
+.tek_date_container {margin-bottom: 20px;}
+
+.tek_date_box {margin-bottom: 20px;}
+.tek_button_box {
+  text-align: right;
+}
+.tek_button_box button{
+  padding: 5px 10px;
+}
+
+.tek_example_box {
+  padding:0 20px;
+  border:1px solid #ccc;
+  background: #d1d1d1;
+  max-width: 400px;
+}
+.tek_example_box ul {
+  padding-bottom: 10px;
+}
+
+input.tek_error {
+  border: 2px solid #dd0000;
+}
+.tek_error_msg {
+  color:  #dd0000;
+}

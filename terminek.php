@@ -1,12 +1,16 @@
 <?php
 /*
 Plugin Name: TerminEK
+Plugin URI: https://github.com/evakohl/terminek
 Description: Manage and display events in wordpress
-Version: 1.1.1
+Version: 1.2
+Requires at least: 6.4
 Author: Eva Kohl
 Author URI: https://evakohl.de
 Text Domain: tek
 Domain Path: /lang
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 if (!defined('ABSPATH')) die('No direct access allowed');

@@ -277,12 +277,11 @@ function tek_save_meta_box($post_id) {
       // save dates 
 
       $date['startenddate'] = array(
-        'start' => utf8_encode($date['startdate']),
-        'end' => utf8_encode($date['enddate'])
+        'start' => $date['startdate'],
+        'end' => $date['enddate']
       );
 
       if( $show_location ){
-          //$date['startenddate']['location'] = utf8_encode($date['location']); 
           $date['startenddate']['location'] = $date['location']; 
         }
 

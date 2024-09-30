@@ -50,7 +50,7 @@ function tek_admin_scripts()
         // enqueue only for specific post types
         if (in_array($screen->post_type, ['tek_event'])) {
             // enqueue script
-            wp_enqueue_script('tek_admin_meta_box_script', TEK_URL . 'js/tek-admin-cf.js', ['jquery']);
+            wp_enqueue_script('tek_admin_meta_box_script', $terminek->tek_url . 'js/tek-admin-cf.js', ['jquery']);
             //localize script, create a custom js object
             wp_localize_script(
                 'tek_admin_meta_box_script',

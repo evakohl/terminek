@@ -15,30 +15,31 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 if (!defined('ABSPATH')) die('No direct access allowed');
 
-// Custom Post Type 
-// Custom Taxonomy 
-// Add Custom Fields
-// Get event data
-// Display Overview (shortcode)
-// Display date on details page (shortcode)
-// Options page
 
 if( ! class_exists('TerminEK') ) :
 
 class TerminEK {
   
   /** @var string The plugin version number. */
-  var $version = '1.1.1';
+  var $version = '1.2';
   
   /** @var array The plugin settings array. */
   var $settings = array();
+
+  /** @var bool The plugin type. */
+  var $tek;
+
+  /** @var string The plugin dir path. */
+  var $tek_path;
+
+  /** @var string The plugin url. */
+  var $tek_url;
   
-  /** @var array The plugin data array. */
-  //var $data = array();
-  
-  /** @var array Storage for class instances. */
-  //var $instances = array();
-  
+  /** @var string The plugin name. */
+  var $tek_basename;
+
+
+
   /**
    * __construct
    *
@@ -69,19 +70,17 @@ class TerminEK {
    */
   function initialize() {
     
-    // Define constants.
-    $this->tek_define( 'TEK', true );
-    $this->tek_define( 'TEK_PATH', plugin_dir_path( __FILE__ ) );
-    $this->tek_define( 'TEK_URL', plugin_dir_url( __FILE__ ) );
-    $this->tek_define( 'TEK_BASENAME', plugin_basename( __FILE__ ) );
-    $this->tek_define( 'TEK_VERSION', $this->version );
-    //$this->define( 'TEK_MAJOR_VERSION', 1 );
-    
+    // Define properties.
+    $this->tek = true;
+    $this->tek_path = plugin_dir_path( __FILE__ );
+    $this->tek_url = plugin_dir_url( __FILE__ );
+    $this->tek_basename = plugin_basename( __FILE__ );
+      
     // Define default settings.
     $this->settings = array(
       'name'            => __('TerminEK', 'tek'),
-      'slug'            => dirname( TEK_BASENAME ),
-      'version'         => TEK_VERSION,
+      'slug'            => dirname( $this->tek_basename ),
+      'version'         => $this->version,
       'capability'        => 'manage_options',
       'tek_label_dates' => __('Dates', 'tek'),
       'tek_label_start' => __('Start: ', 'tek'),
@@ -95,10 +94,10 @@ class TerminEK {
     );
     
     // Include additional functions.
-    include_once( TEK_PATH . 'includes/tek_utility_functions.php');
-    include_once( TEK_PATH . 'includes/tek_custom_fields.php');
-    include_once( TEK_PATH . 'includes/tek_frontend.php');
-    include_once( TEK_PATH . 'includes/tek_admin_page.php');
+    include_once(  $this->tek_path . 'includes/tek_utility_functions.php');
+    include_once(  $this->tek_path . 'includes/tek_custom_fields.php');
+    include_once(  $this->tek_path . 'includes/tek_frontend.php');
+    include_once(  $this->tek_path . 'includes/tek_admin_page.php');
 
     // Add actions: Register Post type and taxonomy
     add_action( 'init', array($this, 'register_tek_post_type'), 20 );
@@ -117,7 +116,7 @@ class TerminEK {
    * @return  void
    */
 function tek_admin_style() {
-  wp_enqueue_style('admin-styles',  TEK_URL .'/styles/admin.css');
+  wp_enqueue_style('admin-styles',   $this->tek_url .'/styles/admin.css');
 }
 
   /**

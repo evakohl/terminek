@@ -27,16 +27,16 @@ class TerminEK {
   var $settings = array();
 
   /** @var bool The plugin type. */
-  var $tek;
+  protected $tek;
 
   /** @var string The plugin dir path. */
-  var $tek_path;
+  protected $tek_path;
 
   /** @var string The plugin url. */
-  var $tek_url;
-  
+  protected $tek_url;
+
   /** @var string The plugin name. */
-  var $tek_basename;
+  protected $tek_basename;
 
 
 
@@ -122,7 +122,7 @@ function tek_admin_style() {
   /**
    * define
    *
-   * Defines a constant if doesnt already exist.
+   * Defines a constant if doesnt already exist. Obsolete since 30/9/24.
    *
    * @date  29/6/20
    * @since 1.0.0
@@ -134,6 +134,25 @@ function tek_admin_style() {
   function tek_define( $name, $value = true ) {
     if( !defined($name) ) {
       define( $name, $value );
+    }
+  }
+
+  /**
+   * tek_get_info
+   *
+   * Returns the class attribute values. False if the attribute doesn't exist.
+   *
+   * @date  30/09/24
+   * @since 2.1.0
+   *
+   * @param string $att The attribute value to retrieve
+   * @return mixed 
+   */
+  function tek_get_info( $att ) {
+    if ( isset($this->$att) ) {
+      return $this->$att;
+    } else {
+      return false;
     }
   }
 

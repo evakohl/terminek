@@ -275,10 +275,9 @@ function tek_save_meta_box($post_id) {
 
     foreach( $dates as $date) {
       // save dates 
-
       $date['startenddate'] = array(
-        'start' => $date['startdate'],
-        'end' => $date['enddate']
+        'start' => mb_convert_encoding( $date['startdate'], 'UTF-8' ),
+        'end' => mb_convert_encoding( $date['enddate'], 'UTF-8' )
       );
 
       if( $show_location ){

@@ -282,7 +282,6 @@ function tek_admin_style() {
    * @date  29/06/20
    * @since 1.0.0
    *
-   * @param void
    * @return  void
    */  
   function register_tek_eventtype_taxonomy() {
@@ -342,9 +341,9 @@ function tek_admin_style() {
  * @date  29/06/20
  * @since 1.0.0
  *
- * @param void
  * @return  TerminEK
  */
+
 function terminek() {
   global $terminek;
   
@@ -357,6 +356,19 @@ function terminek() {
 }
 
 // Instantiate.
-terminek();
+//terminek();
+
 
 endif;
+
+
+/**
+ * Create instance on the initialization of WordPress.
+ * @since 2.1.0
+ *
+ * @return void
+ */
+function tek_initialize_terminek() {
+  terminek();
+}
+add_action( 'init', 'tek_initialize_terminek' );

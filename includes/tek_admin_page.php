@@ -221,23 +221,23 @@ add_action( 'admin_init', 'tek_settings_api_init' );
  *
  */
 function tek_label_section_callback() {
-  global $terminek;
+  //global $terminek;
   echo '<p>' . __('Insert your custom labels for the display of event dates on single event pages and archives. ', 'tek') . __('On your event pages the date list will look more or less like this: ', 'tek') .'</p>';
 
   echo '<div class="tek_example_box">';
   echo  tek_format_date_list(array(
         array(
-          'start' => date_i18n(get_option('date_format'), strtotime('16-05-2023')),
-          'end' => date_i18n(get_option('date_format'), strtotime('17-05-2023')),
-          'raw_start' => '20230516',
+          'start' => date_i18n(get_option('date_format'), strtotime('today')),
+          'end' => date_i18n(get_option('date_format'), strtotime('tomorrow')),
+          'raw_start' => strtotime('today'),
           'raw_end' => '20230517',
           'location' => 'Berlin',
           'custom' => 'Dr. Schuster'
         ),
          array(
-          'start' => date_i18n(get_option('date_format'), strtotime('03-10-2023')),
-          'end' => date_i18n(get_option('date_format'), strtotime('05-10-2023')),
-          'raw_start' => '20231003',
+          'start' => date_i18n(get_option('date_format'), strtotime('03-10-2025')),
+          'end' => date_i18n(get_option('date_format'), strtotime('05-10-2025')),
+          'raw_start' => strtotime('03-10-2025'),
           'raw_end' => '20231005',
           'location' => 'Potsdam',
           'custom' => 'Dr. Schuster'

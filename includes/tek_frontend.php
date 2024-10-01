@@ -40,7 +40,7 @@ function tek_format_date_list ($dates) {
 
         foreach($dates as $date) {
             if(($show_past == 'hide') && ($date['raw_start'] < current_time( 'Ymd' ))){
-
+                $html .= '';
             }else{
                 $html .= '<li>';
 
@@ -111,7 +111,7 @@ function tek_add_date_to_content ( $content ) {
     global $terminek;
     $show_list = $terminek->tek_get_option( 'tek_single_auto' );
 
-    if ( (get_post_type() == 'tek_event') &&  ($show_list != 'hide')) {
+    if ( is_main_query() && (get_post_type() == 'tek_event') &&  ($show_list != 'hide')) {
         $dates = tek_get_date_list(get_the_ID());
         $html = tek_format_date_list ($dates);
         return $html . $content;

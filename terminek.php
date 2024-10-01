@@ -92,6 +92,9 @@ class TerminEK {
       'tek_archive_excerpt' => 'hide',
       'default_time' => 'future',
     );
+
+    // Set default options.
+    //add_option( )
     
     // Include additional functions.
     include_once(  $this->tek_path . 'includes/tek_utility_functions.php');
@@ -183,7 +186,20 @@ function tek_admin_style() {
    * @return  mixed
    */  
   function tek_get_option(String $key) { 
-    return (null !== get_option( $key ))? get_option( $key ) : $this->tek_get_setting( $key );
+    //return (null !== get_option( $key ))? get_option( $key ) : $this->tek_get_setting( $key );
+    /*
+    $value = '';
+    if (null !== get_option( $key )) {
+      $value = get_option( $key );
+      echo ('Der Key ist da: ' . $key . ' !!!!!!!');
+    } else {
+      $value = $this->tek_get_setting( $key );
+      echo ('Der Key ist NICHT da: ' . $key . ' !!!!!!!');
+    }
+    return $value;
+*/
+    return get_option( $key, $this->tek_get_setting( $key )) ;
+
   } 
 
 

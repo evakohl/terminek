@@ -372,3 +372,16 @@ function tek_initialize_terminek() {
   terminek();
 }
 add_action( 'init', 'tek_initialize_terminek' );
+
+
+/**
+ * Activate the plugin.
+ * @since 2.1.0
+ */
+function tek_plugin_activate() { 
+	// Initialize plugin and register post type
+	terminek(); 
+	// Clear permalinks after the post type has been registered.
+	flush_rewrite_rules(); 
+}
+register_activation_hook( __FILE__, 'tek_plugin_activate' );

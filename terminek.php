@@ -379,8 +379,12 @@ add_action( 'init', 'tek_initialize_terminek' );
  * @since 2.1.0
  */
 function tek_plugin_activate() { 
-	// Initialize plugin and register post type
+	// Initialize plugin
 	terminek(); 
+  // register post type
+  global $terminek;
+  $terminek->register_tek_post_type();
+  $terminek->register_tek_eventtype_taxonomy();
 	// Clear permalinks after the post type has been registered.
 	flush_rewrite_rules(); 
 }

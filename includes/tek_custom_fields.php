@@ -320,7 +320,6 @@ function tek_save_meta_box($post_id) {
       // add dates as custom fields
       add_post_meta( $post_id, '_tek_start_date', $date['startdate'] );
       add_post_meta( $post_id, '_tek_startend_date', wp_slash(json_encode($date['startenddate'])) );
-      //add_post_meta( $post_id, '_tek_startend_date', json_encode($date['startenddate']) );
     }
   
 }
@@ -328,7 +327,6 @@ function tek_save_meta_box($post_id) {
 add_action( 'save_post', 'tek_save_meta_box' );
 
 
-//add_action('edit_post', 'tek_add_admin_fields');
 
 
 /*

@@ -226,9 +226,9 @@ function tek_display_event_archive( $atts ) {
                         $events[] = array(
                             'start' => ($decoded->start)? $decoded->start : '',
                             'end' => ($decoded->end)? $decoded->end : '',
-                            'location' => (isset($decoded->location))? $decoded->location : '',
-                            'custom' => (isset($decoded->custom))? $decoded->custom : '',
-                            'custom2' => (isset($decoded->custom2))? $decoded->custom2 : '',
+                            'location' => (isset($decoded->location))? stripslashes($decoded->location) : '',
+                            'custom' => (isset($decoded->custom))? stripslashes($decoded->custom) : '',
+                            'custom2' => (isset($decoded->custom2))? stripslashes($decoded->custom2) : '',
                             'title' => get_the_title(),
                             'permalink' => get_the_permalink(),
                             'excerpt' => get_the_excerpt(),

@@ -306,21 +306,21 @@ function tek_save_meta_box($post_id) {
       );
 
       if( $show_location ){
-          $date['startenddate']['location'] = $date['location']; 
+          $date['startenddate']['location'] = mb_convert_encoding( $date['location'], 'UTF-8' );
         }
 
       if( $show_custom ){
-          $date['startenddate']['custom'] = $date['custom']; 
+          $date['startenddate']['custom'] = mb_convert_encoding( $date['custom'], 'UTF-8' ); 
       }
 
       if( $show_custom2 ){
-        $date['startenddate']['custom2'] = $date['custom2']; 
+        $date['startenddate']['custom2'] = mb_convert_encoding( $date['custom2'], 'UTF-8' ); 
     }
 
       // add dates as custom fields
       add_post_meta( $post_id, '_tek_start_date', $date['startdate'] );
       add_post_meta( $post_id, '_tek_startend_date', wp_slash(json_encode($date['startenddate'])) );
-      
+      //add_post_meta( $post_id, '_tek_startend_date', json_encode($date['startenddate']) );
     }
   
 }
@@ -379,13 +379,13 @@ function tek_format_dates($dates) {
           $formatted['raw_end'] = $decoded->end;
         }
         if(isset($decoded->location)){
-          $formatted['location'] = $decoded->location;
+          $formatted['location'] = stripslashes($decoded->location);
         }
         if(isset($decoded->custom)){
-          $formatted['custom'] = $decoded->custom;
+          $formatted['custom'] = stripslashes($decoded->custom);
         }
         if(isset($decoded->custom2)){
-          $formatted['custom2'] = $decoded->custom2;
+          $formatted['custom2'] = stripslashes($decoded->custom2);
         }
 
       }

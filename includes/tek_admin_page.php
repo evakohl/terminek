@@ -90,6 +90,27 @@ function tek_settings_api_init() {
     'tek-opt',
     'tek_label_section'
   );
+  add_settings_field(
+    'tek_show_custom2',
+    __('Show second custom input', 'tek'),
+    'tek_show_custom2_callback',
+    'tek-opt',
+    'tek_label_section'
+  );
+  add_settings_field(
+    'tek_admin_label_custom2',
+    __('Second label "Custom" for admin area', 'tek'),
+    'tek_admin_label_custom2_callback',
+    'tek-opt',
+    'tek_label_section'
+  );
+  add_settings_field(
+    'tek_label_custom2',
+    __('Second label "Custom" for frontend', 'tek'),
+    'tek_label_custom2_callback',
+    'tek-opt',
+    'tek_label_section'
+  );
 
 //single event settings section
  add_settings_section(
@@ -195,6 +216,9 @@ function tek_settings_api_init() {
   register_setting( 'tek-opt', 'tek_show_custom' );
   register_setting( 'tek-opt', 'tek_label_custom' );
   register_setting( 'tek-opt', 'tek_admin_label_custom' );
+  register_setting( 'tek-opt', 'tek_show_custom2' );
+  register_setting( 'tek-opt', 'tek_label_custom2' );
+  register_setting( 'tek-opt', 'tek_admin_label_custom2' );
 
   register_setting( 'tek-opt', 'tek_single_head' );
   register_setting( 'tek-opt', 'tek_single_wrapper' );
@@ -232,7 +256,8 @@ function tek_label_section_callback() {
           'raw_start' => strtotime('today'),
           'raw_end' => '20230517',
           'location' => 'Berlin',
-          'custom' => 'Dr. Schuster'
+          'custom' => 'Dr. Schuster',
+          'custom2' => 'Coaching Session'
         ),
          array(
           'start' => date_i18n(get_option('date_format'), strtotime('03-10-2025')),
@@ -240,7 +265,8 @@ function tek_label_section_callback() {
           'raw_start' => strtotime('03-10-2025'),
           'raw_end' => '20231005',
           'location' => 'Potsdam',
-          'custom' => 'Dr. Schuster'
+          'custom' => 'Dr. Schuster',
+          'custom2' => 'Introduction'
         ),
   ));
   echo '</div>';
@@ -289,6 +315,25 @@ function tek_admin_label_custom_callback() {
 function tek_label_custom_callback() {
   global $terminek;
   echo '<input name="tek_label_custom" id="tek_label_custom" type="text" value="' . $terminek->tek_get_option( 'tek_label_custom' ) . '"/>';
+}
+
+function tek_show_custom2_callback() {
+  global $terminek;
+ $selected = $terminek->tek_get_option( 'tek_show_custom2' );
+
+ if($selected == 'show'){
+     echo '<input name="tek_show_custom2" id="tek_show_custom2" type="checkbox" checked="checked" value="show"/>';
+ }else{
+     echo '<input name="tek_show_custom2" id="tek_show_custom2" type="checkbox" value="show"/>';
+ }
+}
+function tek_admin_label_custom2_callback() {
+ global $terminek;
+ echo '<input name="tek_admin_label_custom2" id="tek_admin_label_custom2" type="text" value="' . $terminek->tek_get_option( 'tek_admin_label_custom2' ) . '"/>';
+}
+function tek_label_custom2_callback() {
+ global $terminek;
+ echo '<input name="tek_label_custom2" id="tek_label_custom2" type="text" value="' . $terminek->tek_get_option( 'tek_label_custom2' ) . '"/>';
 }
 
 

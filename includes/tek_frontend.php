@@ -24,6 +24,8 @@ function tek_format_date_list ($dates) {
     $label_location = $terminek->tek_get_option( 'tek_label_location' );
     $show_custom = $terminek->tek_get_option( 'tek_show_custom' );
     $label_custom = $terminek->tek_get_option( 'tek_label_custom' );
+    $show_custom2 = $terminek->tek_get_option( 'tek_show_custom2' );
+    $label_custom2 = $terminek->tek_get_option( 'tek_label_custom2' );
     $head_format = $terminek->tek_get_option( 'tek_single_head' );
     $wrapper = ($terminek->tek_get_option( 'tek_single_wrapper' ))? $terminek->tek_get_option( 'tek_single_wrapper' ) : 'span';
     $show_past = $terminek->tek_get_option( 'tek_single_past' );
@@ -78,6 +80,17 @@ function tek_format_date_list ($dates) {
                             $html .= '<li>';
                         $html .= '<span class="tek-label-custom">' . $label_custom . '</span>
                             <span class="tek-date-custom">' . $date['custom'] . ' </span>';
+                        if($wrapper == 'li')
+                            $html .= '</li>';
+                        } 
+                    }
+
+                if(isset($show_custom2) && ($show_custom2 == 'show')){
+                    if(!empty($date['custom2'])){
+                        if($wrapper == 'li')
+                            $html .= '<li>';
+                        $html .= '<span class="tek-label-custom">' . $label_custom2 . '</span>
+                            <span class="tek-date-custom">' . $date['custom2'] . ' </span>';
                         if($wrapper == 'li')
                             $html .= '</li>';
                         } 
@@ -168,6 +181,8 @@ function tek_display_event_archive( $atts ) {
     $label_location = $terminek->tek_get_option( 'tek_label_location' );
     $show_custom = $terminek->tek_get_option( 'tek_show_custom' );
     $label_custom = $terminek->tek_get_option( 'tek_label_custom' );
+    $show_custom2 = $terminek->tek_get_option( 'tek_show_custom2' );
+    $label_custom2 = $terminek->tek_get_option( 'tek_label_custom2' );
 
     $show_link = $terminek->tek_get_option( 'tek_archive_link' );
     $linktext = $terminek->tek_get_option( 'tek_archive_linktext' );
@@ -213,6 +228,7 @@ function tek_display_event_archive( $atts ) {
                             'end' => ($decoded->end)? $decoded->end : '',
                             'location' => (isset($decoded->location))? $decoded->location : '',
                             'custom' => (isset($decoded->custom))? $decoded->custom : '',
+                            'custom2' => (isset($decoded->custom2))? $decoded->custom2 : '',
                             'title' => get_the_title(),
                             'permalink' => get_the_permalink(),
                             'excerpt' => get_the_excerpt(),
@@ -259,6 +275,10 @@ function tek_display_event_archive( $atts ) {
         if(isset($event['custom']) && ($show_custom == 'show') && !empty($event['custom'])){
             $html .= '<span class="tek-label-custom">' . $label_custom . '</span>
                     <span class="tek-custom">' . $event['custom'] . ' </span>';
+            }
+        if(isset($event['custom2']) && ($show_custom2 == 'show') && !empty($event['custom2'])){
+            $html .= '<span class="tek-label-custom">' . $label_custom2 . '</span>
+                    <span class="tek-custom">' . $event['custom2'] . ' </span>';
             }
         $html .= '</p>';
 

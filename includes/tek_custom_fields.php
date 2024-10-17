@@ -42,6 +42,7 @@ function tek_admin_scripts()
 
    global $terminek;
   $label_c = ($terminek->tek_get_option( 'tek_admin_label_custom' ))? $terminek->tek_get_option( 'tek_admin_label_custom' ) : 'Custom input';
+  $label_c2 = ($terminek->tek_get_option( 'tek_admin_label_custom2' ))? $terminek->tek_get_option( 'tek_admin_label_custom2' ) : 'Custom input 2';
 
     // get current admin screen, or null
     $screen = get_current_screen();
@@ -60,7 +61,9 @@ function tek_admin_scripts()
                     'url' => admin_url('admin-ajax.php'),
                     'showloc' =>  ($terminek->tek_get_option( 'tek_show_location' ) == 'show'),
                     'showcust' =>  ($terminek->tek_get_option( 'tek_show_custom' ) == 'show'),
-                    'labelcust' => $label_c
+                    'labelcust' => $label_c,
+                    'showcust2' =>  ($terminek->tek_get_option( 'tek_show_custom2' ) == 'show'),
+                    'labelcust2' => $label_c2
                 ]
             );
         }
@@ -111,6 +114,7 @@ function tek_add_admin_fields($post) {
       $end = (isset($dates[$counter]['end']))? $dates[$counter]['end'] : '';
       $location = (isset($dates[$counter]['location']))? $dates[$counter]['location'] : '';
       $custom = (isset($dates[$counter]['custom']))? $dates[$counter]['custom'] : '';
+      $custom2 = (isset($dates[$counter]['custom2']))? $dates[$counter]['custom2'] : '';
       ?>
         <div class="tek_date_box tek_date_box_<?php echo $counter; ?>">
           <label for="tek_start_date_<?php echo $counter; ?>">
@@ -146,6 +150,21 @@ function tek_add_admin_fields($post) {
             <input type="text" class="tek_cust_input" id="tek_custom_<?php echo $counter; ?>" name="tek_custom_<?php echo $counter; ?>" value="<?php echo esc_html( $custom ); ?>" size="25" />
           <?php } ?>
 
+          <?php if( $terminek->tek_get_option( 'tek_show_custom2' ) == 'show' ){ ?>
+            <br>
+            <label for="tek_custom2_<?php echo $counter; ?>">
+              <?php 
+              if($terminek->tek_get_option( 'tek_admin_label_custom2' )){
+                _e( $terminek->tek_get_option( 'tek_admin_label_custom2' ), 'tek' ); 
+              }else{
+                _e( 'Custom input 2', 'tek' ); 
+              }
+              
+              ?>
+            </label>
+            <input type="text" class="tek_cust_input" id="tek_custom2_<?php echo $counter; ?>" name="tek_custom2_<?php echo $counter; ?>" value="<?php echo esc_html( $custom2 ); ?>" size="25" />
+          <?php } ?>
+
         </div>
 
       
@@ -178,6 +197,7 @@ function tek_save_meta_box($post_id) {
   global $terminek;
   $show_location = ($terminek->tek_get_option( 'tek_show_location' ) == 'show');
   $show_custom = ($terminek->tek_get_option( 'tek_show_custom' ) == 'show');
+  $show_custom2 = ($terminek->tek_get_option( 'tek_show_custom2' ) == 'show');
   /*
      * We need to verify this came from the our screen and with proper authorization,
      * because save_post can be triggered at other times.
@@ -230,6 +250,7 @@ function tek_save_meta_box($post_id) {
       $ed = sanitize_text_field( $_POST['tek_end_date_'.$counter] );
       $loc = sanitize_text_field( $_POST['tek_location_'.$counter] );
       $cust = sanitize_text_field( $_POST['tek_custom_'.$counter] );
+      $cust2 = sanitize_text_field( $_POST['tek_custom2_'.$counter] );
 
 
       if(!empty($sd) && strtotime($sd)){
@@ -255,6 +276,10 @@ function tek_save_meta_box($post_id) {
 
         if( $show_custom ){
           $date['custom'] = $cust; 
+        }
+
+        if( $show_custom2 ){
+          $date['custom2'] = $cust2; 
         }
 
         $dates[] = $date;
@@ -287,6 +312,10 @@ function tek_save_meta_box($post_id) {
       if( $show_custom ){
           $date['startenddate']['custom'] = $date['custom']; 
       }
+
+      if( $show_custom2 ){
+        $date['startenddate']['custom2'] = $date['custom2']; 
+    }
 
       // add dates as custom fields
       add_post_meta( $post_id, '_tek_start_date', $date['startdate'] );
@@ -336,7 +365,8 @@ function tek_format_dates($dates) {
         'raw_start' => '',
         'raw_end' => '',
         'location' => '',
-        'custom' => ''
+        'custom' => '',
+        'custom2' => ''
       );
 
 
@@ -353,6 +383,9 @@ function tek_format_dates($dates) {
         }
         if(isset($decoded->custom)){
           $formatted['custom'] = $decoded->custom;
+        }
+        if(isset($decoded->custom2)){
+          $formatted['custom2'] = $decoded->custom2;
         }
 
       }

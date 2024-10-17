@@ -20,6 +20,10 @@
                 html += '<label for="tek_custom_' + n + '">' + tek_admin_script.labelcust + '</label>' +
                     '<input type="text" class="tek_date_input" id="tek_custom_' + n + '" name="tek_custom_' + n + '" value="" size="25" />';
            }
+           if(tek_admin_script.showcust2){
+            html += '<label for="tek_custom2_' + n + '">' + tek_admin_script.labelcust2 + '</label>' +
+                '<input type="text" class="tek_date_input" id="tek_custom2_' + n + '" name="tek_custom2_' + n + '" value="" size="25" />';
+       }
 
 
            html += '</div>';

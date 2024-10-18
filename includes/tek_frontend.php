@@ -187,16 +187,6 @@ function tek_display_event_archive( $atts ) {
     $order = $terminek->tek_get_option( 'tek_archive_order' );
     $format = get_option('date_format'); 
 
-    $label_start = $terminek->tek_get_option( 'tek_label_start' );
-    $label_end = $terminek->tek_get_option( 'tek_label_end' );
-
-    $show_location = $terminek->tek_get_option( 'tek_show_location' );
-    $label_location = $terminek->tek_get_option( 'tek_label_location' );
-    $show_custom = $terminek->tek_get_option( 'tek_show_custom' );
-    $label_custom = $terminek->tek_get_option( 'tek_label_custom' );
-    $show_custom2 = $terminek->tek_get_option( 'tek_show_custom2' );
-    $label_custom2 = $terminek->tek_get_option( 'tek_label_custom2' );
-
     $show_link = $terminek->tek_get_option( 'tek_archive_link' );
     $linktext = $terminek->tek_get_option( 'tek_archive_linktext' );
 

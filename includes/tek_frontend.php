@@ -7,15 +7,16 @@ if (!defined('ABSPATH')) die('No direct access allowed');
 
 
 /*
- * Format date list for single events
+ * Format date list for events
  *
  * @date  04/10/21
  * @since 1.1.0
  *
- * @param id  String the post id
+ * @param dates Array array of date parameters
+ * @param archive_view  bool true to display dates in archive
  * @return  String The formatted date list
  */
-function tek_format_date_list ($dates) {
+function tek_format_date_list ($dates, $archive_view = false) {
     global $terminek;
     $label_dates = $terminek->tek_get_option( 'tek_label_dates' );
     $label_start = $terminek->tek_get_option( 'tek_label_start' );
@@ -35,19 +36,24 @@ function tek_format_date_list ($dates) {
     if( !empty($dates) ){
 
         $html .= '<div class="tek-data tek-data-content">';
-        if(!empty($label_dates))
+        if(!empty($label_dates) && !$archive_view)
             $html .= '<' . $head_format . ' class="tek_title">' . $label_dates . '</' . $head_format . '>';
         // display list of dates
-        $html .= '<ul>';
+        if( $archive_view ) {
+            $html .= '<p class="tek-event-dates">';
+        } else {
+            $html .= '<ul class="tek-event-dates">';
+        }
 
         foreach($dates as $date) {
-            if(($show_past == 'hide') && ($date['raw_start'] < current_time( 'Ymd' ))){
+            if(( !$archive_view ) && ($show_past == 'hide') && ($date['raw_start'] < current_time( 'Ymd' ))){
                 $html .= '';
             }else{
-                $html .= '<li>';
+                if( !$archive_view )
+                    $html .= '<li>';
 
                 if($wrapper == 'li')
-                    $html .= '<ul><li>';
+                    $html .= '<ul><li class="tek-list-item-start">';
 
                 $html .= '<span class="tek-label-start">' . $label_start . ' </span>
                         <span class="tek-date-start">' . $date['start'] . ' </span>';
@@ -57,7 +63,7 @@ function tek_format_date_list ($dates) {
 
                 if(!empty($date['end'])){
                     if($wrapper == 'li')
-                        $html .= '<li>';
+                        $html .= '<li class="tek-list-item-end">';
                     $html .= '<span class="tek-label-end">' . $label_end . '</span>
                             <span class="tek-date-end">' . $date['end'] . ' </span>';
                     if($wrapper == 'li')
@@ -66,7 +72,7 @@ function tek_format_date_list ($dates) {
                 if(isset($show_location) && ($show_location == 'show')){
                     if(!empty($date['location'])){
                         if($wrapper == 'li')
-                            $html .= '<li>';
+                            $html .= '<li class="tek-list-item-location">';
                         $html .= '<span class="tek-label-location">' . $label_location . '</span>
                             <span class="tek-date-location">' . $date['location'] . ' </span>';
                         } 
@@ -77,7 +83,7 @@ function tek_format_date_list ($dates) {
                 if(isset($show_custom) && ($show_custom == 'show')){
                     if(!empty($date['custom'])){
                         if($wrapper == 'li')
-                            $html .= '<li>';
+                            $html .= '<li class="tek-list-item-custom">';
                         $html .= '<span class="tek-label-custom">' . $label_custom . '</span>
                             <span class="tek-date-custom">' . $date['custom'] . ' </span>';
                         if($wrapper == 'li')
@@ -88,7 +94,7 @@ function tek_format_date_list ($dates) {
                 if(isset($show_custom2) && ($show_custom2 == 'show')){
                     if(!empty($date['custom2'])){
                         if($wrapper == 'li')
-                            $html .= '<li>';
+                            $html .= '<li  class="tek-list-item-custom">';
                         $html .= '<span class="tek-label-custom">' . $label_custom2 . '</span>
                             <span class="tek-date-custom">' . $date['custom2'] . ' </span>';
                         if($wrapper == 'li')
@@ -98,12 +104,19 @@ function tek_format_date_list ($dates) {
                 
                 if($wrapper == 'li')
                     $html .= '</ul>';
-
-                $html .= '</li>';
+                
+                if( !$archive_view ) {
+                    $html .= '</li>';
+                }
+                
             }
             
         }
-        $html .= '</ul>';
+        if( $archive_view ) {
+            $html .= '</p>';
+        } else {
+            $html .= '</ul>';
+        }
         $html .= '</div>';
     }
     
@@ -224,8 +237,11 @@ function tek_display_event_archive( $atts ) {
                         ($time == 'all')
                         ){
                         $events[] = array(
-                            'start' => ($decoded->start)? $decoded->start : '',
-                            'end' => ($decoded->end)? $decoded->end : '',
+                            'raw_start' => ($decoded->start)? $decoded->start : '',
+                            //'start' => ($decoded->start)? $decoded->start : '',
+                            //'end' => ($decoded->end)? $decoded->end : '',
+                            'start' => ($decoded->start)? date_i18n($format, strtotime($decoded->start)) : '',
+                            'end' => ($decoded->end)? date_i18n($format, strtotime($decoded->end)) : '',
                             'location' => (isset($decoded->location))? stripslashes($decoded->location) : '',
                             'custom' => (isset($decoded->custom))? stripslashes($decoded->custom) : '',
                             'custom2' => (isset($decoded->custom2))? stripslashes($decoded->custom2) : '',
@@ -244,7 +260,7 @@ function tek_display_event_archive( $atts ) {
     wp_reset_postdata();
 
     //sort index by date
-    array_multisort(array_column($events, 'start'), SORT_ASC, $events);
+    array_multisort(array_column($events, 'raw_start'), SORT_ASC, $events);
 
 
     //format event list
@@ -261,29 +277,10 @@ function tek_display_event_archive( $atts ) {
             $html .= '<' . $head_format . '><a href="' . $event['permalink'] . '">' . $event['title'] . '</a></' . $head_format . '>';
         }
 
-        $html .= '<p class="tek-event-date">';
-        $html .= '<span class="tek-label-start">' . $label_start . '</span>
-                <span class="tek-date-start">' . date_i18n($format, strtotime($event['start'])) . ' </span>';
-        if(!empty($event['end'])){
-            $html .= '<span class="tek-label-end">' . $label_end . '</span>
-                    <span class="tek-date-end">' . date_i18n($format, strtotime($event['end'])) . ' </span>';
-            }
-        if(isset($event['location']) && ($show_location == 'show') && !empty($event['location'])){
-            $html .= '<span class="tek-label-location">' . $label_location . '</span>
-                    <span class="tek-location">' . $event['location'] . ' </span>';
-            }
-        if(isset($event['custom']) && ($show_custom == 'show') && !empty($event['custom'])){
-            $html .= '<span class="tek-label-custom">' . $label_custom . '</span>
-                    <span class="tek-custom">' . $event['custom'] . ' </span>';
-            }
-        if(isset($event['custom2']) && ($show_custom2 == 'show') && !empty($event['custom2'])){
-            $html .= '<span class="tek-label-custom">' . $label_custom2 . '</span>
-                    <span class="tek-custom">' . $event['custom2'] . ' </span>';
-            }
-        $html .= '</p>';
+        $html .= tek_format_date_list( array($event), true );
 
         if($order == 'date_title'){
-            // show headeline after date
+            // show headline after date
             $html .= '<' . $head_format . '><a href="' . $event['permalink'] . '">' . $event['title'] . '</a></' . $head_format . '>';
         }
 

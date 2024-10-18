@@ -15,7 +15,9 @@
            if(tek_admin_script.showloc){
                 html += '<label for="tek_location_' + n + '">Location</label>' +
                     '<input type="text" class="tek_date_input" id="tek_location_' + n + '" name="tek_location_' + n + '" value="" size="25" />';
-           }
+                html += '<label for="tek_loc_url_' + n + '">Location URL</label>' +
+                    '<input type="url" class="tek_date_input" id="tek_loc_url_' + n + '" name="tek_loc_url_' + n + '" value="" size="25" />';
+            }
            if(tek_admin_script.showcust){
                 html += '<label for="tek_custom_' + n + '">' + tek_admin_script.labelcust + '</label>' +
                     '<input type="text" class="tek_date_input" id="tek_custom_' + n + '" name="tek_custom_' + n + '" value="" size="25" />';

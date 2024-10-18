@@ -99,7 +99,7 @@ function tek_add_admin_fields($post) {
       <div class="tek_date_container" id="tek_date_container">
         <p>
           <?php 
-          _e( 'Please use the following formatting for dates: DD.MM.YYYY or DD-MM-YYYY.', 'tek' );
+          // _e( 'Please use the following formatting for dates: DD.MM.YYYY or DD-MM-YYYY.', 'tek' );
           ?>
            
         </p>
@@ -113,6 +113,7 @@ function tek_add_admin_fields($post) {
       $start = (isset($dates[$counter]['start']))? $dates[$counter]['start'] : '';
       $end = (isset($dates[$counter]['end']))? $dates[$counter]['end'] : '';
       $location = (isset($dates[$counter]['location']))? $dates[$counter]['location'] : '';
+      $loc_url = (isset($dates[$counter]['loc_url']))? $dates[$counter]['loc_url'] : '';
       $custom = (isset($dates[$counter]['custom']))? $dates[$counter]['custom'] : '';
       $custom2 = (isset($dates[$counter]['custom2']))? $dates[$counter]['custom2'] : '';
       ?>
@@ -133,7 +134,12 @@ function tek_add_admin_fields($post) {
               <?php _e( 'Location', 'tek' ); ?>
             </label>
             <input type="text" class="tek_loc_input" id="tek_location_<?php echo $counter; ?>" name="tek_location_<?php echo $counter; ?>" value="<?php echo esc_html( $location ); ?>" size="25" />
-          <?php } ?>
+            <br>
+            <label for="tek_loc_url_<?php echo $counter; ?>">
+              <?php _e( 'Location URL', 'tek' ); ?>
+            </label>
+            <input type="url" class="tek_loc_input" id="tek_loc_url_<?php echo $counter; ?>" name="tek_loc_url_<?php echo $counter; ?>" value="<?php echo esc_url( $loc_url ); ?>" size="25" />
+            <?php } ?>
 
           <?php if( $terminek->tek_get_option( 'tek_show_custom' ) == 'show' ){ ?>
             <br>
@@ -249,6 +255,7 @@ function tek_save_meta_box($post_id) {
       $sd = sanitize_text_field( $_POST['tek_start_date_'.$counter] );
       $ed = sanitize_text_field( $_POST['tek_end_date_'.$counter] );
       $loc = sanitize_text_field( $_POST['tek_location_'.$counter] );
+      $loc_url = sanitize_text_field( $_POST['tek_loc_url_'.$counter] );
       $cust = sanitize_text_field( $_POST['tek_custom_'.$counter] );
       $cust2 = sanitize_text_field( $_POST['tek_custom2_'.$counter] );
 
@@ -272,6 +279,7 @@ function tek_save_meta_box($post_id) {
 
         if( $show_location ){
           $date['location'] = $loc; 
+          $date['loc_url'] = $loc_url; 
         }
 
         if( $show_custom ){
@@ -307,6 +315,7 @@ function tek_save_meta_box($post_id) {
 
       if( $show_location ){
           $date['startenddate']['location'] = mb_convert_encoding( $date['location'], 'UTF-8' );
+          $date['startenddate']['loc_url'] = mb_convert_encoding( $date['loc_url'], 'UTF-8' );
         }
 
       if( $show_custom ){
@@ -363,6 +372,7 @@ function tek_format_dates($dates) {
         'raw_start' => '',
         'raw_end' => '',
         'location' => '',
+        'loc_url' => '',
         'custom' => '',
         'custom2' => ''
       );
@@ -378,6 +388,9 @@ function tek_format_dates($dates) {
         }
         if(isset($decoded->location)){
           $formatted['location'] = stripslashes($decoded->location);
+        }
+        if(isset($decoded->loc_url)){
+          $formatted['loc_url'] = stripslashes($decoded->loc_url);
         }
         if(isset($decoded->custom)){
           $formatted['custom'] = stripslashes($decoded->custom);

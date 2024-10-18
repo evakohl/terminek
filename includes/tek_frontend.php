@@ -73,8 +73,13 @@ function tek_format_date_list ($dates, $archive_view = false) {
                     if(!empty($date['location'])){
                         if($wrapper == 'li')
                             $html .= '<li class="tek-list-item-location">';
-                        $html .= '<span class="tek-label-location">' . $label_location . '</span>
-                            <span class="tek-date-location">' . $date['location'] . ' </span>';
+                        $html .= '<span class="tek-label-location">' . $label_location . ' </span>';
+                        if(!empty($date['loc_url'])){
+                            $html .= '<span class="tek-date-location"><a href="' . $date['loc_url'] . '" target="_blank">' . $date['location'] . ' </a></span>';
+                        } else {
+                            $html .= '<span class="tek-date-location">' . $date['location'] . ' </span>';
+                        }
+                        
                         } 
                         if($wrapper == 'li')
                             $html .= '</li>';
@@ -228,11 +233,10 @@ function tek_display_event_archive( $atts ) {
                         ){
                         $events[] = array(
                             'raw_start' => ($decoded->start)? $decoded->start : '',
-                            //'start' => ($decoded->start)? $decoded->start : '',
-                            //'end' => ($decoded->end)? $decoded->end : '',
                             'start' => ($decoded->start)? date_i18n($format, strtotime($decoded->start)) : '',
                             'end' => ($decoded->end)? date_i18n($format, strtotime($decoded->end)) : '',
                             'location' => (isset($decoded->location))? stripslashes($decoded->location) : '',
+                            'loc_url' => (isset($decoded->loc_url))? stripslashes($decoded->loc_url) : '',
                             'custom' => (isset($decoded->custom))? stripslashes($decoded->custom) : '',
                             'custom2' => (isset($decoded->custom2))? stripslashes($decoded->custom2) : '',
                             'title' => get_the_title(),

@@ -40,7 +40,7 @@ function tek_format_date_list ($dates, $archive_view = false) {
             $html .= '<' . $head_format . ' class="tek_title">' . $label_dates . '</' . $head_format . '>';
         // display list of dates
         if( $archive_view ) {
-            $html .= '<p class="tek-event-dates">';
+            $html .= '<div class="tek-event-dates">';
         } else {
             $html .= '<ul class="tek-event-dates">';
         }
@@ -113,7 +113,7 @@ function tek_format_date_list ($dates, $archive_view = false) {
             
         }
         if( $archive_view ) {
-            $html .= '</p>';
+            $html .= '</div>';
         } else {
             $html .= '</ul>';
         }
